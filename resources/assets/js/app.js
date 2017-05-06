@@ -1,22 +1,24 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
-window.Vue = require('vue');
+// Vue components
+Vue.component('c-form', require('./components/Form.vue'));
+Vue.component('c-input', require('./components/Input.vue'));
+Vue.component('c-textarea', require('./components/Textarea.vue'));
+Vue.component('c-submit-button', require('./components/SubmitButton.vue'));
+Vue.component('c-calendar', require('./components/Calendar.vue'));
+Vue.component('c-modal', require('./components/Modal.vue'));
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+// Classes
+import User from './classes/User';
 
-Vue.component('example', require('./components/Example.vue'));
-
-const app = new Vue({
-    el: '#app'
+window.app = new Vue({
+    el: '#calendar',
+    data: {
+        user: new User()
+    },
+    methods: {
+        initUser(fields) {
+            this.user = new User(fields);
+        }
+    }
 });

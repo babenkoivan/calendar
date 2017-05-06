@@ -1,9 +1,19 @@
-
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
+
+// Packages
+@import "node_modules/bulma/bulma";
+@import "node_modules/fullcalendar/dist/fullcalendar";
+
+// Components
+@import "components/auth-form";
 
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.is-danger {
+  input {
+    border-color: $is-danger-color;
+  }
+}
