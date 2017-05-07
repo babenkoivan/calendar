@@ -16,11 +16,24 @@ window.app = new Vue({
     el: '#calendar',
     data: {
         user: new User(),
-        mounted: new ComponentContainer()
+        mounted: new ComponentContainer(),
+        ready: false
     },
     methods: {
         initUser(fields) {
-            this.user = new User(fields);
+            this.user.init(fields);
+            this.$forceUpdate();
+        },
+        logout() {
+            axios.post('/auth/logout');
+
+            this.user.destroy();
+            this.$forceUpdate();
         }
+    },
+    created() {
+        this.ready = true;
+
+        history.pushState(null, null, '/');
     }
 });

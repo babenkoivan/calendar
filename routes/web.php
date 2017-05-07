@@ -1,16 +1,11 @@
 <?php
 
-Route::get('/', function () {
-    $user = null;
+Route::get('/', 'AppController@index');
 
-    if (Auth::check()) {
-        $user = Auth::user()->toArray();
-    }
-
-    return view('layout', compact('user'));
-});
-
-Route::post('/auth', 'AuthController@login');
+Route::post('/auth/login', 'AuthController@login');
+Route::post('/auth/logout', 'AuthController@logout');
+Route::post('/auth/invite', 'AuthController@invite');
+Route::post('/auth/register', 'AuthController@register');
 
 Route::post('/events', 'EventController@add');
 Route::put('/events/{event}', 'EventController@update');

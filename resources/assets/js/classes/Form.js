@@ -2,10 +2,15 @@ class Form {
     constructor(vueForm) {
         this.vueForm = vueForm;
         this.vueFields = {};
+        this.vueButton = null;
     }
 
     addField(field) {
         this.vueFields[field.name] = field;
+    }
+
+    addButton(button) {
+        this.vueButton = button;
     }
 
     data(data) {
@@ -55,16 +60,23 @@ class Form {
 
     submit() {
         this.vueForm.error = '';
+        this.vueButton.loading = true;
 
         axios[this.type()](this.action(), this.data())
             .then(response => {
+                this.vueButton.loading = false;
+
                 if (typeof this.vueForm.success == 'function') {
-                    this.vueForm.success(response.data, this);
-                } else {
-                    this.reset();
+                    if (this.vueForm.success(response.data, this) === false) {
+                        return;
+                    }
                 }
+
+                this.reset();
             })
             .catch(error => {
+                this.vueButton.loading = false;
+
                 if (!error.response || !error.response.data) {
                     return;
                 }

@@ -7,10 +7,10 @@
 
 <script>
     export default {
-        props: ['name'],
+        props: ['name', 'preset'],
         data() {
             return {
-                value: this.defaultValue || '',
+                value: this.preset || '',
                 error: ''
             };
         },

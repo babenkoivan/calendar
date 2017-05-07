@@ -2,35 +2,37 @@
     <div>
         <div class="full-calendar"></div>
 
-        <c-modal name="event_modal">
+        <c-modal name="event">
             <h1 slot="title">{{ tmp.modalTitle }}</h1>
 
-            <c-form :action="tmp.form.action" :type="tmp.form.type" :success="refetchEvents" name="event_form">
+            <c-form :action="tmp.form.action" :type="tmp.form.type" :success="refetchEvents" name="event"
+                :class="{disabled: tmp.event && !tmp.event.editable}">
+
                 <div class="field">
                     <label class="label">Name</label>
                     <p class="control">
-                        <c-input type="text" name="name" />
+                        <c-input type="text" name="name"></c-input>
                     </p>
                 </div>
 
                 <div class="field">
                     <label class="label">Time start</label>
                     <p class="control">
-                        <c-input name="time_start" type="datetime-local" />
+                        <c-input name="time_start" type="datetime-local"></c-input>
                     </p>
                 </div>
 
                 <div class="field">
                     <label class="label">Time end</label>
                     <p class="control">
-                        <c-input name="time_end" type="datetime-local" />
+                        <c-input name="time_end" type="datetime-local"></c-input>
                     </p>
                 </div>
 
                 <div class="field">
                     <label class="label">Color</label>
                     <p class="control">
-                        <c-input type="color" name="color" />
+                        <c-input type="color" name="color"></c-input>
                     </p>
                 </div>
 
@@ -42,11 +44,11 @@
                 </div>
 
                 <div class="field is-grouped">
-                    <p class="control">
+                    <p class="control" v-if="!tmp.event || tmp.event.editable">
                         <c-submit-button class="button is-success">Save</c-submit-button>
                     </p>
 
-                    <p class="control" v-if="this.tmp.event">
+                    <p class="control" v-if="tmp.event && tmp.event.editable">
                         <a class="button is-danger" @click.prevent="removeEvent()">Delete</a>
                     </p>
 
@@ -126,6 +128,8 @@
                 this.calendar.fullCalendar('refetchEvents');
 
                 this.modal.hide();
+
+                return false;
             },
             removeEvent() {
                 if (!this.tmp.event) {
@@ -150,7 +154,6 @@
                 this.calendar.fullCalendar({
                     events: '/events',
                     navLinks: true,
-                    editable: true,
                     eventLimit: true,
                     dayClick(day) {
                         self.showAddForm(day);
@@ -167,8 +170,8 @@
         mounted() {
             this.initCalendar();
 
-            this.form = this.$root.mounted.get('form.event_form').form;
-            this.modal = this.$root.mounted.get('modal.event_modal');
+            this.form = this.$root.mounted.get('form.event').form;
+            this.modal = this.$root.mounted.get('modal.event');
         }
     }
 </script>

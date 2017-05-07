@@ -10,11 +10,6 @@ class EventPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAll(User $user)
-    {
-        return $user->isAdministrator();
-    }
-
     public function modify(User $user, Event $event)
     {
         return $user->isAdministrator() || $user->id == $event->user_id;

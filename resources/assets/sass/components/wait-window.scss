@@ -1,0 +1,25 @@
+@import "../variables";
+
+.wait-window {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: $is-white-color;
+  opacity: 0.95;
+
+  i {
+    $size: 50px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -$size/2;
+    margin-left: -$size/2;
+    font-size: $size;
+    line-height: $size;
+    color: $is-danger-color;
+  }
+}

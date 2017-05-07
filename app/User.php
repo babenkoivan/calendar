@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'updated_at'
     ];
 
+    protected $rememberTokenName = '';
+
     public function events()
     {
         return $this->hasMany(Event::class);
@@ -34,5 +37,13 @@ class User extends Authenticatable
     public function isAdministrator()
     {
         return $this->groups()->where('name', 'administrator')->count() > 0;
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+        $array['is_admin'] = $this->isAdministrator();
+        $array['auth'] = Auth::check();
+        return $array;
     }
 }

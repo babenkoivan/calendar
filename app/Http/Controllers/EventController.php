@@ -55,20 +55,15 @@ class EventController extends Controller
 
     public function list()
     {
-        if (Auth::user()->can('viewAll', Event::class)) {
-            $events = Event::all();
-        } else {
-            $events = Event::where('user_id', Auth::id())->get();
-        }
-
-        return $events->map(function($event) {
+        return Event::all()->map(function($event) {
             return [
                 'id' => $event->id,
                 'title' => $event->name,
                 'start' => $event->time_start,
                 'end' => $event->time_end,
                 'color' => $event->color,
-                'description' => $event->description
+                'description' => $event->description,
+                'editable' => Auth::user()->can('modify', $event)
             ];
         })->all();
     }

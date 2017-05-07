@@ -8,6 +8,7 @@
 
 // Components
 @import "components/auth-form";
+@import "components/wait-window";
 
 // Variables
 @import "variables";
@@ -15,5 +16,21 @@
 .is-danger {
   input {
     border-color: $is-danger-color;
+  }
+}
+
+i,
+span {
+  &.is-danger {
+    color: $is-danger-color;
+  }
+}
+
+form {
+  &.disabled {
+    input,
+    textarea {
+      pointer-events: none;
+    }
   }
 }
