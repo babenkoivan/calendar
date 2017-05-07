@@ -23,15 +23,17 @@ class EventController extends Controller
         ]);
 
         $event = new Event($request->all());
-
-        $user = Auth::user();
-        $event->user_id = $user->id;
+        $event->user_id = Auth::id();
 
         $event->save();
     }
 
     public function update(Event $event, Request $request)
     {
+        if (!Auth::user()->can('modify', $event)) {
+            return;
+        }
+
         $this->validate($request, [
             'name' => 'required|sometimes',
             'time_start' => 'required|sometimes',
@@ -44,12 +46,22 @@ class EventController extends Controller
 
     public function delete(Event $event)
     {
+        if (!Auth::user()->can('modify', $event)) {
+            return;
+        }
+
         $event->delete();
     }
 
     public function list()
     {
-        return Event::all()->map(function($event) {
+        if (Auth::user()->can('viewAll', Event::class)) {
+            $events = Event::all();
+        } else {
+            $events = Event::where('user_id', Auth::id())->get();
+        }
+
+        return $events->map(function($event) {
             return [
                 'id' => $event->id,
                 'title' => $event->name,

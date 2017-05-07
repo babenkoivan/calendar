@@ -36,7 +36,7 @@
         },
         mounted() {
             if (this.name) {
-                this.$root.mounted['modal.' + this.name] = this;
+                this.$root.mounted.register('modal.' + this.name, this);
             }
         }
     }

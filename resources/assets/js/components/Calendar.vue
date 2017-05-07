@@ -167,8 +167,8 @@
         mounted() {
             this.initCalendar();
 
-            this.form = this.$root.mounted['form.event_form'].form;
-            this.modal = this.$root.mounted['modal.event_modal'];
+            this.form = this.$root.mounted.get('form.event_form').form;
+            this.modal = this.$root.mounted.get('modal.event_modal');
         }
     }
 </script>

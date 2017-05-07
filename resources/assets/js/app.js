@@ -10,12 +10,13 @@ Vue.component('c-modal', require('./components/Modal.vue'));
 
 // Classes
 import User from './classes/User';
+import ComponentContainer from './classes/ComponentContainer';
 
 window.app = new Vue({
     el: '#calendar',
     data: {
         user: new User(),
-        mounted: {}
+        mounted: new ComponentContainer()
     },
     methods: {
         initUser(fields) {

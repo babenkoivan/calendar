@@ -20,7 +20,7 @@
         },
         mounted() {
             if (this.name) {
-                this.$root.mounted['form.' + this.name] = this;
+                this.$root.mounted.register('form.' + this.name, this);
             }
         }
     }
