@@ -82,7 +82,8 @@ class EventController extends Controller
                 'description' => $event->description,
                 'editable' => Auth::user()->can('modify', $event),
                 'author' => $event->user->name,
-                'className' => 'status-'.$event->status()
+                'className' => 'status-'.$event->status(),
+                'allDay' => $event->allDay(),
             ];
         })->all();
     }

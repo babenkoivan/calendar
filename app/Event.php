@@ -53,4 +53,12 @@ class Event extends Model
             return 'new';
         }
     }
+
+    public function allDay()
+    {
+        $startTime = $this->time_start->format('H:i');
+        $endTime = $this->time_end->format('H:i');
+
+        return $startTime == '00:00' && $endTime == '00:00';
+    }
 }

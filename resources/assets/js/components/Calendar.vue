@@ -165,6 +165,9 @@
                     },
                     eventDrop(event) {
                         self.updateEventTime(event)
+                    },
+                    eventResize(event) {
+                        self.updateEventTime(event)
                     }
                 });
             }
