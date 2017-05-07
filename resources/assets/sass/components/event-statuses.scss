@@ -1,0 +1,23 @@
+@import "../variables";
+
+.fc-event {
+  $size: 10px;
+
+  border: none;
+  border-left: $size solid;
+  padding-left: $size/2;
+
+  &.status {
+    &-new {
+      border-left-color: $is-primary-color !important;
+    }
+
+    &-in-progress {
+      border-left-color: $is-warning-color !important;
+    }
+
+    &-done {
+      border-left-color: $is-danger-color !important;
+    }
+  }
+}

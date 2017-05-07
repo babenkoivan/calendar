@@ -55,15 +55,17 @@ class EventController extends Controller
 
     public function list()
     {
-        return Event::all()->map(function($event) {
+        return Event::with('user')->get()->map(function($event) {
             return [
                 'id' => $event->id,
                 'title' => $event->name,
-                'start' => $event->time_start,
-                'end' => $event->time_end,
+                'start' => $event->time_start->format(Event::DATE_FORMAT),
+                'end' => $event->time_end->format(Event::DATE_FORMAT),
                 'color' => $event->color,
                 'description' => $event->description,
-                'editable' => Auth::user()->can('modify', $event)
+                'editable' => Auth::user()->can('modify', $event),
+                'author' => $event->user->name,
+                'className' => 'status-'.$event->status()
             ];
         })->all();
     }

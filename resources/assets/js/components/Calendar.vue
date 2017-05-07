@@ -9,7 +9,7 @@
                 :class="{disabled: tmp.event && !tmp.event.editable}">
 
                 <div class="field">
-                    <label class="label">Name</label>
+                    <label class="label">Title</label>
                     <p class="control">
                         <c-input type="text" name="name"></c-input>
                     </p>
@@ -106,7 +106,7 @@
             },
             showEditForm(event) {
                 this.tmp = {
-                    modalTitle: event.title,
+                    modalTitle: event.author + ': ' + event.title,
                     form: {
                         type: 'put',
                         action: '/events/' + event.id
@@ -144,6 +144,8 @@
                 axios.put('/events/' + event.id, {
                     time_start: event.start.format(this.dateFormat),
                     time_end: event.end.format(this.dateFormat)
+                }).then(() => {
+                    this.refetchEvents();
                 });
             },
             initCalendar() {
