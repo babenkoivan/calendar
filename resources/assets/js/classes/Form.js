@@ -22,11 +22,7 @@ class Form {
             data = {};
 
             for (let name in this.vueFields) {
-                let value = $.trim(this.vueFields[name].value);
-
-                if (value.length > 0) {
-                    data[name] = this.vueFields[name].value;
-                }
+                data[name] = this.vueFields[name].value;
             }
 
             return data;

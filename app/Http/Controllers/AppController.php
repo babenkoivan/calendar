@@ -12,10 +12,12 @@ class AppController extends Controller
     {
         $user = null;
 
-        if (Auth::check()) {
-            $user = Auth::user()->toArray();
-        } elseif ($request->invitation_token) {
+        if ($request->invitation_token) {
+            Auth::logout();
+
             $user = User::where('invitation_token', $request->invitation_token)->first();
+        } elseif (Auth::check()) {
+            $user = Auth::user()->toArray();
         }
 
         return view('layout', compact('user'));

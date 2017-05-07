@@ -41,9 +41,9 @@ class Event extends Model
 
     public function status()
     {
-        $currentTime = Carbon::now()->format('Y-m-d H:m');
-        $startTime = $this->time_start->format('Y-m-d H:m');
-        $endTime = $this->time_end->format('Y-m-d H:m');
+        $currentTime = Carbon::now()->timestamp;
+        $startTime = $this->time_start->timestamp;
+        $endTime = $this->time_end->timestamp;
 
         if ($currentTime > $startTime && $currentTime < $endTime) {
             return 'in-progress';

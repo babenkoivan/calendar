@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Validation\ValidationException;
 
 class EventController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    private function validateTime(Event $event)
+    {
+        if ($event->time_end->timestamp < $event->time_start->timestamp) {
+            throw new HttpResponseException(response()->json(
+                ['time_end' => ['The end time must be greater than the start time']], 422)
+            );
+        }
     }
 
     public function add(Request $request)
@@ -25,6 +36,8 @@ class EventController extends Controller
         $event = new Event($request->all());
         $event->user_id = Auth::id();
 
+        $this->validateTime($event);
+
         $event->save();
     }
 
@@ -35,13 +48,17 @@ class EventController extends Controller
         }
 
         $this->validate($request, [
-            'name' => 'required|sometimes',
-            'time_start' => 'required|sometimes',
-            'time_end' => 'required|sometimes',
-            'color' => 'required|sometimes'
+            'name' => 'sometimes|required',
+            'time_start' => 'sometimes|required',
+            'time_end' => 'sometimes|required',
+            'color' => 'sometimes|required'
         ]);
 
-        $event->fill($request->all())->save();
+        $event->fill($request->all());
+
+        $this->validateTime($event);
+
+        $event->save();
     }
 
     public function delete(Event $event)
