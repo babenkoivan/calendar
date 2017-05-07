@@ -15,7 +15,7 @@
                 </p>
             </div>
 
-            <div class="field">
+            <div class="field buttons">
                 <p class="control">
                     <c-submit-button class="button is-primary">Submit</c-submit-button>
                 </p>

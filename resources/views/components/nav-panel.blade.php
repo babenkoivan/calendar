@@ -44,7 +44,7 @@
             </p>
         </div>
 
-        <div class="field is-grouped">
+        <div class="field is-grouped buttons">
             <p class="control">
                 <c-submit-button class="button is-success">Send</c-submit-button>
             </p>

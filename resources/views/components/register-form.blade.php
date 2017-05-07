@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <div class="field">
+            <div class="field buttons">
                 <p class="control">
                     <c-submit-button class="button is-primary">Register</c-submit-button>
                 </p>

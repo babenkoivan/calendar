@@ -43,7 +43,7 @@
                     </p>
                 </div>
 
-                <div class="field is-grouped">
+                <div class="field is-grouped buttons">
                     <p class="control" v-if="!tmp.event || tmp.event.editable">
                         <c-submit-button class="button is-success">Save</c-submit-button>
                     </p>
