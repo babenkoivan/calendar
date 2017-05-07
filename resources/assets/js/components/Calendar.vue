@@ -18,14 +18,14 @@
                 <div class="field">
                     <label class="label">Time start</label>
                     <p class="control">
-                        <c-input name="time_start" type="datetime-local"></c-input>
+                        <c-datepicker name="time_start"></c-datepicker>
                     </p>
                 </div>
 
                 <div class="field">
                     <label class="label">Time end</label>
                     <p class="control">
-                        <c-input name="time_end" type="datetime-local"></c-input>
+                        <c-datepicker name="time_end"></c-datepicker>
                     </p>
                 </div>
 
@@ -68,7 +68,7 @@
                 modal: null,
                 form: null,
                 calendar: null,
-                dateFormat: 'YYYY-MM-DD[T]HH:mm',
+                dateFormat: 'YYYY-MM-DD HH:mm:ss',
                 tmp: {
                     modalTitle: '',
                     form: {
@@ -90,15 +90,13 @@
                     event: null
                 };
 
-                let currentTime = new Date();
-                day.hours(currentTime.getHours())
-                   .minutes(currentTime.getMinutes());
+                day.hours(0).minutes(0);
 
                 this.form.data({
                     name: '',
                     time_start: day.format(this.dateFormat),
-                    time_end: '',
-                    color: '#71bab0',
+                    time_end: day.add(1, 'd').format(this.dateFormat),
+                    color: '#7D9EC0',
                     description: ''
                 });
 

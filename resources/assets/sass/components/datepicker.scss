@@ -1,0 +1,12 @@
+@import "../variables";
+
+#dt_box {
+  .dtpicker-value,
+  .dtpicker-close {
+    color: $is-primary-color;
+  }
+
+  .dtpicker-button {
+    background: $is-primary-color;
+  }
+}

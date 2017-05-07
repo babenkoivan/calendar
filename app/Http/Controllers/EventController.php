@@ -6,7 +6,6 @@ use App\Event;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Auth;
-use Illuminate\Validation\ValidationException;
 
 class EventController extends Controller
 {
@@ -76,8 +75,8 @@ class EventController extends Controller
             return [
                 'id' => $event->id,
                 'title' => $event->name,
-                'start' => $event->time_start->format(Event::DATE_FORMAT),
-                'end' => $event->time_end->format(Event::DATE_FORMAT),
+                'start' => $event->time_start->toDateTimeString(),
+                'end' => $event->time_end->toDateTimeString(),
                 'color' => $event->color,
                 'description' => $event->description,
                 'editable' => Auth::user()->can('modify', $event),

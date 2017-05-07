@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    const DATE_FORMAT = 'Y-m-d\TH:i';
-
     public $timestamps = false;
 
     protected $dates = [
@@ -23,16 +21,6 @@ class Event extends Model
         'description',
         'color'
     ];
-
-    public function setTimeStartAttribute($value)
-    {
-        $this->attributes['time_start'] = Carbon::createFromFormat(self::DATE_FORMAT, $value);
-    }
-
-    public function setTimeEndAttribute($value)
-    {
-        $this->attributes['time_end'] = Carbon::createFromFormat(self::DATE_FORMAT, $value);
-    }
 
     public function user()
     {
