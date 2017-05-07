@@ -2,10 +2,10 @@
     <div>
         <div class="full-calendar"></div>
 
-        <c-modal>
-            <h1 slot="title">{{ temp.modalTitle }}</h1>
+        <c-modal name="event_modal">
+            <h1 slot="title">{{ tmp.modalTitle }}</h1>
 
-            <c-form :action="temp.formAction" :type="temp.formType" :success="refetchEvents">
+            <c-form :action="tmp.form.action" :type="tmp.form.type" :success="refetchEvents" name="event_form">
                 <div class="field">
                     <label class="label">Name</label>
                     <p class="control">
@@ -46,12 +46,12 @@
                         <c-submit-button class="button is-success">Save</c-submit-button>
                     </p>
 
-                    <p class="control" v-if="this.temp.selectedEvent">
+                    <p class="control" v-if="this.tmp.event">
                         <a class="button is-danger" @click.prevent="removeEvent()">Delete</a>
                     </p>
 
                     <p class="control">
-                        <button class="button is-link" @click.prevent="hideForm()">Cancel</button>
+                        <button class="button is-link" @click.prevent="modal.hide()">Cancel</button>
                     </p>
                 </div>
             </c-form>
@@ -63,25 +63,29 @@
     export default {
         data() {
             return {
-                event: new Vue(),
+                modal: null,
                 form: null,
                 calendar: null,
                 dateFormat: 'YYYY-MM-DD[T]HH:mm',
-                temp: {
+                tmp: {
                     modalTitle: '',
-                    formType: '',
-                    formAction: '',
-                    selectedEvent: null
+                    form: {
+                        type: '',
+                        action: ''
+                    },
+                    event: null
                 }
             };
         },
         methods: {
             showAddForm(day) {
-                this.temp = {
+                this.tmp = {
                     modalTitle: 'New event',
-                    formType: 'post',
-                    formAction: '/events',
-                    selectedEvent: null
+                    form: {
+                        type: 'post',
+                        action: '/events'
+                    },
+                    event: null
                 };
 
                 let currentTime = new Date();
@@ -96,14 +100,16 @@
                     description: ''
                 });
 
-                this.event.$emit('modal-show');
+                this.modal.show();
             },
             showEditForm(event) {
-                this.temp = {
+                this.tmp = {
                     modalTitle: event.title,
-                    formType: 'put',
-                    formAction: '/events/' + event.id,
-                    selectedEvent: event
+                    form: {
+                        type: 'put',
+                        action: '/events/' + event.id
+                    },
+                    event: event
                 };
 
                 this.form.data({
@@ -114,22 +120,19 @@
                     description: event.description
                 });
 
-                this.event.$emit('modal-show');
-            },
-            hideForm() {
-                this.event.$emit('modal-hide');
+                this.modal.show();
             },
             refetchEvents() {
                 this.calendar.fullCalendar('refetchEvents');
 
-                this.event.$emit('modal-hide');
+                this.modal.hide();
             },
             removeEvent() {
-                if (!this.temp.selectedEvent) {
+                if (!this.tmp.event) {
                     return;
                 }
 
-                axios.delete('/events/' + this.temp.selectedEvent.id).then(() => {
+                axios.delete('/events/' + this.tmp.event.id).then(() => {
                     this.refetchEvents();
                 });
             },
@@ -138,29 +141,34 @@
                     time_start: event.start.format(this.dateFormat),
                     time_end: event.end.format(this.dateFormat)
                 });
+            },
+            initCalendar() {
+                let self = this;
+
+                this.calendar = $(self.$el).find('.full-calendar');
+
+                this.calendar.fullCalendar({
+                    events: '/events',
+                    navLinks: true,
+                    editable: true,
+                    eventLimit: true,
+                    dayClick(day) {
+                        self.showAddForm(day);
+                    },
+                    eventClick(event) {
+                        self.showEditForm(event);
+                    },
+                    eventDrop(event) {
+                        self.updateEventTime(event)
+                    }
+                });
             }
         },
         mounted() {
-            let self = this;
+            this.initCalendar();
 
-            this.calendar = $(self.$el).find('.full-calendar');
-            this.form = this.calendar.next().find('form').get(0).__vue__.form;
-
-            this.calendar.fullCalendar({
-                events: '/events',
-                navLinks: true,
-                editable: true,
-                eventLimit: true,
-                dayClick(day) {
-                    self.showAddForm(day);
-                },
-                eventClick(event) {
-                    self.showEditForm(event);
-                },
-                eventDrop(event) {
-                    self.updateEventTime(event)
-                }
-            });
+            this.form = this.$root.mounted['form.event_form'].form;
+            this.modal = this.$root.mounted['modal.event_modal'];
         }
     }
 </script>

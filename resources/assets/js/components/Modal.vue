@@ -20,6 +20,7 @@
 
 <script>
     export default {
+        props: ['name'],
         data() {
             return {
                 hidden: true
@@ -34,13 +35,9 @@
             }
         },
         mounted() {
-            this.$parent.event.$on('modal-hide', () => {
-                this.hide();
-            });
-
-            this.$parent.event.$on('modal-show', () => {
-                this.show();
-            });
+            if (this.name) {
+                this.$root.mounted['modal.' + this.name] = this;
+            }
         }
     }
 </script>

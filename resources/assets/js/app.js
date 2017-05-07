@@ -14,7 +14,8 @@ import User from './classes/User';
 window.app = new Vue({
     el: '#calendar',
     data: {
-        user: new User()
+        user: new User(),
+        mounted: {}
     },
     methods: {
         initUser(fields) {

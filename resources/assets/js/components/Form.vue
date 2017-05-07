@@ -10,12 +10,17 @@
     import Form from '../classes/Form';
 
     export default {
-        props: ['action', 'type', 'success'],
+        props: ['action', 'type', 'name', 'success'],
         data() {
             return {
                 form: new Form(this),
                 event: new Vue(),
                 error: ''
+            }
+        },
+        mounted() {
+            if (this.name) {
+                this.$root.mounted['form.' + this.name] = this;
             }
         }
     }
