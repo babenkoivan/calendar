@@ -3,6 +3,7 @@ require('./bootstrap');
 // Vue components
 Vue.component('c-form', require('./components/Form.vue'));
 Vue.component('c-input', require('./components/Input.vue'));
+Vue.component('c-colorpicker', require('./components/Colorpicker.vue'));
 Vue.component('c-textarea', require('./components/Textarea.vue'));
 Vue.component('c-submit-button', require('./components/SubmitButton.vue'));
 Vue.component('c-calendar', require('./components/Calendar.vue'));

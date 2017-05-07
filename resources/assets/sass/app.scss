@@ -5,11 +5,13 @@
 // Packages
 @import "node_modules/bulma/bulma";
 @import "node_modules/fullcalendar/dist/fullcalendar";
+@import "node_modules/spectrum-colorpicker/spectrum";
 
 // Components
 @import "components/auth-form";
 @import "components/wait-window";
 @import "components/event-statuses";
+@import "components/colorpicker";
 
 // Variables
 @import "variables";

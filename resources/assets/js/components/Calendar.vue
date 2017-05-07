@@ -32,7 +32,7 @@
                 <div class="field">
                     <label class="label">Color</label>
                     <p class="control">
-                        <c-input type="color" name="color"></c-input>
+                        <c-colorpicker name="color"></c-colorpicker>
                     </p>
                 </div>
 

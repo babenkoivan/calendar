@@ -1,0 +1,20 @@
+@import "../variables";
+
+.sp-replacer {
+  border: none;
+  padding: 0;
+  background: none;
+
+  .sp-dd {
+    display: none;
+  }
+
+  .sp-preview {
+    border: none;
+  }
+}
+
+.sp-container {
+  background: $is-white-color;
+  border: 1px solid $is-gray-color;
+}
