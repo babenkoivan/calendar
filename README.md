@@ -3,7 +3,7 @@
 This demo was built with [Laravel](https://laravel.com/) as a backend framework, [Vue.js](https://vuejs.org/) as a frontend framework and
 [FullCalendar](https://fullcalendar.io/) as a library for displaying events.    
 
-### Demo
+## Demo
 
 **Demo page**: 
 [calendar.app](http://51.15.68.138/)
@@ -16,7 +16,7 @@ login - admin@calendar.app
 password - 123456
 ```
 
-### Installation
+## Installation
 
 **Requirements:**
 * PHP >= 7
