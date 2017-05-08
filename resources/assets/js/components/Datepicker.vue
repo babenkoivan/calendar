@@ -19,7 +19,7 @@
         },
         watch: {
             value() {
-                this.$parent.event.$emit('value-changed');
+                this.$parent.$emit('value-changed');
 
                 this.error = '';
             }

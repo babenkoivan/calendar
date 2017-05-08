@@ -14,7 +14,6 @@
         data() {
             return {
                 form: new Form(this),
-                event: new Vue(),
                 error: ''
             }
         },

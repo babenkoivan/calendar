@@ -13,7 +13,7 @@
             };
         },
         mounted() {
-            this.$parent.event.$on('value-changed', () => {
+            this.$parent.$on('value-changed', () => {
                 this.disabled = this.$parent.form.isEmpty();
             });
 
