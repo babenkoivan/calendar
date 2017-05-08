@@ -34,7 +34,8 @@ span {
 form {
   &.disabled {
     input,
-    textarea {
+    textarea,
+    .sp-replacer {
       pointer-events: none;
     }
   }
